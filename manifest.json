@@ -1,0 +1,17 @@
+{
+  "name": "GistReveal",
+  "version": "0.0.1",
+  "permissions": ["tabs", "*://gist.github.com/*"],
+  "browser_action": {
+    "default_icon": "/src/icon/icon.png"
+  },
+  "content_scripts": [{
+    "matches": ["*://gist.github.com/*"],
+    "js": ["/src/js/content.js"]
+  }],
+  "background": {
+    "page": "/src/html/background.html"
+  },
+  "description": "Reveal.js wrapper as chrome extension.",
+  "manifest_version": 2
+}
