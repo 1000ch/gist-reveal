@@ -7,7 +7,14 @@
   },
   "content_scripts": [{
     "matches": ["*://gist.github.com/*"],
-    "js": ["/src/js/content.js"]
+    "css": [
+      "/reveal.js/css/reveal.min.css",
+      "/src/css/content.css"
+    ],
+    "js": [
+      "/reveal.js/js/reveal.min.js",
+      "/src/js/content.js"
+    ]
   }],
   "background": {
     "page": "/src/html/background.html"
