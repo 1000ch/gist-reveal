@@ -17,9 +17,8 @@
 
     //if it need to load css of chrome-extension schema
     //use cssFile string for loading
-    sendMessage(tab.id, {
-      cssFile: chrome.extension.getURL("/reveal.js/css/reveal.min.css")
-    }, noop);
+    //cssFile: chrome.extension.getURL("/reveal.js/css/reveal.min.css")
+    sendMessage(tab.id, {}, noop);
   });
 
   /**

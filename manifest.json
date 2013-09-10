@@ -1,6 +1,6 @@
 {
   "name": "GistReveal",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "permissions": [
     "tabs",
     "*://*/*"
@@ -18,9 +18,6 @@
       "/src/js/content.js"
     ]
   }],
-  "web_accessible_resources": [
-    "/reveal.js/css/reveal.min.css"
-  ],
   "background": {
     "page": "/src/html/background.html"
   },

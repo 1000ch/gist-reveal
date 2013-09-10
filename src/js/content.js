@@ -148,11 +148,11 @@
   //listen message
   chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 
-    var head = qs("head");
-    var revealcss = createNode("link", {
-      rel: "stylesheet",
-      href: message.cssFile
-    });
+    //var head = qs("head");
+    //var revealcss = createNode("link", {
+    //  rel: "stylesheet",
+    //  href: message.cssFile
+    //});
     //head.appendChild(revealcss);
 
     var markdownBody = qs(".markdown-body");
