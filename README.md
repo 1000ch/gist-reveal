@@ -8,19 +8,23 @@ Make your gist presentation with reveal.js.
 ## Note
 
 ```json
-"permissions": [
-  "tabs",
-  "*://*/*"
-]
+{
+  "permissions": [
+    "tabs",
+    "*://*/*"
+  ]
+}
 ```
 
 `tabs` is need to use `chrome.tabs.*` API.  
 `*://*/*` is need to refer to css of `chrome-extension://` schema at `chrome.tabs.insertCSS`.  
 
 ```json
-"web_accessible_resources": [
-  "/reveal.js/css/reveal.min.css"
-],
+{
+  "web_accessible_resources": [
+    "/reveal.js/css/reveal.min.css"
+  ]
+}
 ```
 
 If it need to load css of `chrome-extension://` schema,  
