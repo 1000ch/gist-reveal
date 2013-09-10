@@ -148,13 +148,6 @@
   //listen message
   chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 
-    //var head = qs("head");
-    //var revealcss = createNode("link", {
-    //  rel: "stylesheet",
-    //  href: message.cssFile
-    //});
-    //head.appendChild(revealcss);
-
     var markdownBody = qs(".markdown-body");
     var header1 = byTag("h1", markdownBody);
     var header2 = byTag("h2", markdownBody);
@@ -199,7 +192,18 @@
     removeNode(byId("ajax-error-message"));
     removeNode(qs("footer"));
 
-    Reveal.initialize();
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme,
+        transition: Reveal.getQueryHash().transition || 'default',
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: []
+    });
   });
 
 })();
