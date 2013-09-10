@@ -10,10 +10,13 @@
     if(!tab) {
       return;
     }
-    //cross origin
-    //chrome.tabs.insertCSS(tab.id, {
-    //  file: chrome.extension.getURL("/reveal.js/css/reveal.min.css")
-    //});
+
+    //insert css
+    chrome.tabs.insertCSS(tab.id, {file: "/reveal.js/css/reveal.min.css"});
+    chrome.tabs.insertCSS(tab.id, {file: "/reveal.js/css/theme/default.css"});
+
+    //if it need to load css of chrome-extension schema
+    //use cssFile string for loading
     sendMessage(tab.id, {
       cssFile: chrome.extension.getURL("/reveal.js/css/reveal.min.css")
     }, noop);
@@ -31,20 +34,6 @@
     } catch(e) {
       console.log(e);
     }
-  }
-
-  /**
-   * extend object
-   * @param {Object} obj
-   * @param {Object} src
-   */
-  function extend(obj, src) {
-    for(var key in src) {
-      if(src.hasOwnProperty(key)) {
-        obj[key] = src[key];
-      }
-    }
-    return obj;
   }
 
   /**

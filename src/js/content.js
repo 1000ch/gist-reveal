@@ -2,7 +2,6 @@
 
   var forEach = [].forEach;
   var slice = [].slice;
-  var filter = [].filter;
 
   /**
    * querySelector alias
@@ -149,12 +148,12 @@
   //listen message
   chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 
-    var link = createNode("link", {
+    var head = qs("head");
+    var revealcss = createNode("link", {
       rel: "stylesheet",
-      type: "text/css",
       href: message.cssFile
     });
-    qs("head").appendChild(link);
+    //head.appendChild(revealcss);
 
     var markdownBody = qs(".markdown-body");
     var header1 = byTag("h1", markdownBody);
@@ -196,24 +195,11 @@
     reveal.appendChild(slides);
     document.body.appendChild(reveal);
 
-    removeNode(qs("#wrapper"));
-    removeNode(qs("#ajax-error-message"));
+    removeNode(byId("wrapper"));
+    removeNode(byId("ajax-error-message"));
     removeNode(qs("footer"));
 
     Reveal.initialize();
   });
 
-  /**
-   * listen DOMContentLoaded
-   * @param {Function} callback
-   */
-  function ready(callback) {
-    if(["complete", "loaded", "interactive"].indexOf(document.readyState) !== -1) {
-      callback.call(document);
-    } else {
-      document.addEventListener("DOMContentLoaded", function() {
-        callback.call(document);
-      });
-    }
-  }
 })();
