@@ -89,10 +89,12 @@
    * @param {HTMLElement} destNode
    */
   function moveNode(targetNode, destNode) {
-    //append clone of targetNode to destNode
-    destNode.appendChild(targetNode.cloneNode(true));
+    //clone
+    var clone = targetNode.cloneNode(true);
     //remove itself
     removeNode(targetNode);
+    //append clone of targetNode to destNode
+    destNode.appendChild(clone);
   }
 
   /**
@@ -146,47 +148,35 @@
 
   //listen message
   chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
-    console.log("message has received.");
 
-    //add .gs-slide to article.markdown-body
-    addClass(qs(".markdown-body"), "gs-slide");
-
-    //remove classes
-    removeClass(qs(".gs-slide"), "markdown-body js-file js-task-list-container is-task-list-enabled");
-
-    //move article.markdown-body to body
-    moveNode(qs(".gs-slide"), document.body);
-
-    //hide elements
-    addClass(byId("wrapper"), "is-hidden");
-    addClass(byId("ajax-error-message"), "is-hidden");
-    addClass(qs(".js-task-list-field"), "is-hidden");
-    addClass(qs("footer"), "is-hidden");
-
-    //get headers under .gs-slide
-    var slideParent = qs(".tmp-container");
-    var header1 = slice.call(byTag('h1', slideParent));
-    var header2 = slice.call(byTag('h2', slideParent));
-    var headers = header1.concat(header2);
-    //filter element which has secret class
-    headers = filter.call(headers, function(header) {
-      return !header.classList.contains("secret");
+    var link = createNode("link", {
+      rel: "stylesheet",
+      type: "text/css",
+      href: message.cssFile
     });
+    qs("head").appendChild(link);
 
-    //wrap headers with section.tmp-slide
-    forEach.call(headers, function(header) {
-      //wrap header with section.tmp-slide
+    var markdownBody = qs(".markdown-body");
+    var header1 = byTag("h1", markdownBody);
+    var header2 = byTag("h2", markdownBody);
+
+    forEach.call(header1, function(header) {
       wrapNode(header, createNode("section", {
-        class: "tmp-slide"
+        class: "js-section"
       }));
     });
 
-    //move following elements to section.tmp-slide
-    var slideSections = byClass("tmp-slide", qs(".tmp-container"));
-    forEach.call(slideSections, function(slide) {
+    forEach.call(header2, function(header) {
+      wrapNode(header, createNode("section", {
+        class: "js-section"
+      }));
+    });
+
+    var slides = byClass("js-section", markdownBody);
+    forEach.call(slides, function(slide) {
       var moveNodeList = [];
       var element = getSibling(slide);
-      while(element && !element.classList.contains("tmp-slide")) {
+      while(element && !element.classList.contains("js-section")) {
         moveNodeList.push(element);
         element = getSibling(element);
       }
@@ -197,14 +187,20 @@
 
     var reveal = createNode("div", {class: "reveal"});
     var slides = createNode("div", {class: "slides"});
-    var sections = byClass("tmp-slide");
+    var sections = slice.call(byClass("js-section"));
+
     forEach.call(sections, function(section) {
-      slides.appendChild(section);
+      moveNode(section, slides);
     });
+
     reveal.appendChild(slides);
     document.body.appendChild(reveal);
 
-    console.log(Reveal);
+    removeNode(qs("#wrapper"));
+    removeNode(qs("#ajax-error-message"));
+    removeNode(qs("footer"));
+
+    Reveal.initialize();
   });
 
   /**

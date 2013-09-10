@@ -8,7 +8,6 @@
   "content_scripts": [{
     "matches": ["*://gist.github.com/*"],
     "css": [
-      "/reveal.js/css/reveal.min.css",
       "/src/css/content.css"
     ],
     "js": [
@@ -16,6 +15,9 @@
       "/src/js/content.js"
     ]
   }],
+  "web_accessible_resources": [
+    "/reveal.js/css/reveal.min.css"
+  ],
   "background": {
     "page": "/src/html/background.html"
   },

@@ -10,7 +10,13 @@
     if(!tab) {
       return;
     }
-    sendMessage(tab.id, {}, noop);
+    //cross origin
+    //chrome.tabs.insertCSS(tab.id, {
+    //  file: chrome.extension.getURL("/reveal.js/css/reveal.min.css")
+    //});
+    sendMessage(tab.id, {
+      cssFile: chrome.extension.getURL("/reveal.js/css/reveal.min.css")
+    }, noop);
   });
 
   /**
