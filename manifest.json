@@ -1,7 +1,10 @@
 {
   "name": "GistReveal",
-  "version": "0.0.1",
-  "permissions": ["tabs", "*://gist.github.com/*"],
+  "version": "0.1.0",
+  "permissions": [
+    "tabs",
+    "*://*/*"
+  ],
   "browser_action": {
     "default_icon": "/src/icon/icon.png"
   },
