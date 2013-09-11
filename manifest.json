@@ -1,6 +1,6 @@
 {
   "name": "GistReveal",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "permissions": [
     "tabs",
     "*://*/*"
@@ -21,6 +21,12 @@
   "background": {
     "page": "/src/html/background.html"
   },
+  "web_accessible_resources": [
+    "/reveal.js/lib/font/league_gothic-webfont.eot",
+    "/reveal.js/lib/font/league_gothic-webfont.svg",
+    "/reveal.js/lib/font/league_gothic-webfont.ttf",
+    "/reveal.js/lib/font/league_gothic-webfont.woff"
+  ],
   "description": "Reveal.js wrapper as chrome extension.",
   "manifest_version": 2
 }

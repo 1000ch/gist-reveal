@@ -148,6 +148,10 @@
   //listen message
   chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 
+    if(!Reveal) {
+      return;
+    }
+
     var markdownBody = qs(".markdown-body");
     var header1 = byTag("h1", markdownBody);
     var header2 = byTag("h2", markdownBody);
