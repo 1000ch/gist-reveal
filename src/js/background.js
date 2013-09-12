@@ -1,9 +1,17 @@
 (function() {
 
+  chrome.storage.onChanged.addListener(function(changes, namespace) {
+    for(var key in changes) {
+      var storageChange = changes[key];
+      console.log(
+        'Storage key "%s" in namespace "%s" changed. Old value was "%s", new value is "%s".',
+        key, namespace, storageChange.oldValue, storageChange.newValue);
+    }
+  });
+
   //when a tab is activated,
   //update contentScript settings.
-  chrome.tabs.onActivated.addListener(function(activeInfo) {
-  });
+  chrome.tabs.onActivated.addListener(function(activeInfo) {});
 
   //when the icon is clicked
   chrome.browserAction.onClicked.addListener(function(tab) {
@@ -26,15 +34,24 @@
         'font-style: normal;' +
       '}';
 
-    //insert css
-    chrome.tabs.insertCSS(tab.id, {file: "/reveal.js/css/reveal.min.css"});
-    chrome.tabs.insertCSS(tab.id, {file: "/reveal.js/css/theme/default.css"});
-    chrome.tabs.insertCSS(tab.id, {code: fontDefinition});
+    chrome.storage.sync.get("gistreveal_theme_key", function(items) {
+      var theme = "default";
+      if(items["gistreveal_theme_key"]) {
+        theme = items["gistreveal_theme_key"];
+      }
 
-    //if it need to load css of chrome-extension schema
-    //use cssFile string for loading
-    //cssFile: chrome.extension.getURL("/reveal.js/css/reveal.min.css")
-    sendMessage(tab.id, {}, noop);
+      //insert css
+      chrome.tabs.insertCSS(tab.id, {file: "/reveal.js/css/reveal.min.css"});
+      chrome.tabs.insertCSS(tab.id, {file: "/reveal.js/css/theme/" + theme + ".css"});
+      chrome.tabs.insertCSS(tab.id, {code: fontDefinition});
+
+      //if it need to load css of chrome-extension schema
+      //use cssFile string for loading
+      //cssFile: chrome.extension.getURL("/reveal.js/css/reveal.min.css")
+      sendMessage(tab.id, {
+        theme: theme
+      }, noop);
+    });
   });
 
   /**

@@ -1,8 +1,9 @@
 {
   "name": "GistReveal",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "permissions": [
     "tabs",
+    "storage",
     "*://*/*"
   ],
   "browser_action": {
@@ -21,6 +22,7 @@
   "background": {
     "page": "/src/html/background.html"
   },
+  "options_page": "/src/html/options.html",
   "web_accessible_resources": [
     "/reveal.js/lib/font/league_gothic-webfont.eot",
     "/reveal.js/lib/font/league_gothic-webfont.svg",
