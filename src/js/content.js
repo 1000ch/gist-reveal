@@ -162,7 +162,7 @@
       moveNode(section, slides);
     });
 
-    reveal.appendChild(slides);console.log(reveal);
+    reveal.appendChild(slides);
     document.body.appendChild(reveal);
 
     removeNode(qs("#wrapper"));
