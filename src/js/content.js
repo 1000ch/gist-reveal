@@ -2,6 +2,10 @@
 
   var forEach = [].forEach;
   var slice = [].slice;
+  var rxIdSelector = /^#([\w\-]+)$/,
+      rxClassSelector = /^\.([\w\-]+)$/,
+      rxTagSelector = /^[\w\-]+$/,
+      rxNameSelector = /^\[name=["']?([\w\-]+)["']?\]$/;
 
   /**
    * querySelector alias
@@ -10,7 +14,15 @@
    * @returns {Node}
    */
   var qs = function(selector, context) {
-    return (context || document).querySelector(selector);
+    var m;
+    if(!context || !context.querySelector) {
+      context = document;
+    }
+    if((m = rxIdSelector.exec(selector))) {
+      return document.getElementById(m[1]);
+    } else {
+      return context.querySelector(selector);
+    }
   };
 
   /**
@@ -20,37 +32,26 @@
    * @returns {NodeList}
    */
   var qsa = function(selector, context) {
-    return (context || document).querySelectorAll(selector);
-  };
-
-  /**
-   * document.getElementById alias
-   * @param {string} selector
-   * @param {HTMLElement} context
-   * @returns {NodeList}
-   */
-  var byId = function(id) {
-    return document.getElementById(id);
-  };
-
-  /**
-   * getElementsByClassName alias
-   * @param {string} selector
-   * @param {HTMLElement} context
-   * @returns {Node}
-   */
-  var byClass = function(className, context) {
-    return (context || document).getElementsByClassName(className);
-  };
-
-  /**
-   * getElementsByTagName alias
-   * @param {string} tagName
-   * @param {HTMLElement} context
-   * @returns {Node}
-   */
-  var byTag = function(tagName, context) {
-    return (context || document).getElementsByTagName(tagName);
+    var m;
+    var result = [];
+    if(!context || !context.querySelectorAll) {
+      context = document;
+    }
+    if((m = rxIdSelector.exec(selector))) {
+      var buffer = document.getElementById(m[1]);
+      if(buffer) {
+        result.push(buffer);
+      }
+    } else if((m = rxClassSelector.exec(selector))) {
+      result = context.getElementsByClassName(m[1]);
+    } else if((m = rxTagSelector.exec(selector))) {
+      result = context.getElementsByTagName(m[0]);
+    } else if((m = rxNameSelector.exec(selector))) {
+      result = context.getElementsByName(m[1]);
+    } else {
+      result = context.querySelectorAll(selector);
+    }
+    return slice.call(result);
   };
 
   /**
@@ -117,34 +118,6 @@
     return node;
   }
 
-  /**
-   * add class to node
-   * @param {HTMLElement} targetNode
-   * @param {string} className
-   */
-  function addClass(targetNode, className) {
-    if(targetNode) {
-      var classArray = className.split(" ");
-      forEach.call(classArray, function(name) {
-        targetNode.classList.add(name);
-      });
-    }
-  }
-
-  /**
-   * remove class from node
-   * @param {HTMLElement} targetNode
-   * @param {string} className
-   */
-  function removeClass(targetNode, className) {
-    if(targetNode) {
-      var classArray = className.split(" ");
-      forEach.call(classArray, function(name) {
-        targetNode.classList.remove(name);
-      });
-    }
-  }
-
   //listen message
   chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 
@@ -153,8 +126,8 @@
     }
 
     var markdownBody = qs(".markdown-body");
-    var header1 = byTag("h1", markdownBody);
-    var header2 = byTag("h2", markdownBody);
+    var header1 = qsa("h1", markdownBody);
+    var header2 = qsa("h2", markdownBody);
 
     forEach.call(header1, function(header) {
       wrapNode(header, createNode("section", {
@@ -168,7 +141,7 @@
       }));
     });
 
-    var slides = byClass("js-section", markdownBody);
+    var slides = qsa(".js-section", markdownBody);
     forEach.call(slides, function(slide) {
       var moveNodeList = [];
       var element = getSibling(slide);
@@ -183,30 +156,31 @@
 
     var reveal = createNode("div", {class: "reveal"});
     var slides = createNode("div", {class: "slides"});
-    var sections = slice.call(byClass("js-section"));
+    var sections = qsa(".js-section");
 
     forEach.call(sections, function(section) {
       moveNode(section, slides);
     });
 
-    reveal.appendChild(slides);
+    reveal.appendChild(slides);console.log(reveal);
     document.body.appendChild(reveal);
 
-    removeNode(byId("wrapper"));
-    removeNode(byId("ajax-error-message"));
+    removeNode(qs("#wrapper"));
+    removeNode(qs("#ajax-error-message"));
     removeNode(qs("footer"));
+    removeNode(qs(".js-task-list-field"));
 
     Reveal.initialize({
-        controls: true,
-        progress: true,
-        history: true,
-        center: true,
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
 
-        theme: Reveal.getQueryHash().theme,
-        transition: Reveal.getQueryHash().transition || 'default',
+      theme: Reveal.getQueryHash().theme,
+      transition: Reveal.getQueryHash().transition || 'default',
 
-        // Optional libraries used to extend on reveal.js
-        dependencies: []
+      // Optional libraries used to extend on reveal.js
+      dependencies: []
     });
   });
 
