@@ -1,4 +1,4 @@
-# GistReveal
+# GistReveal [![Build Status](https://travis-ci.org/1000ch/GistReveal.png?branch=master)](https://travis-ci.org/1000ch/GistReveal)
 
 ## About
 
