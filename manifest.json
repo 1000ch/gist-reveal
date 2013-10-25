@@ -1,10 +1,11 @@
 {
   "name": "GistReveal",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "permissions": [
     "tabs",
     "storage",
-    "*://*/*"
+    "http://*/",
+    "https://*/"
   ],
   "browser_action": {
     "default_icon": "/src/icon/icon.png"
@@ -17,7 +18,8 @@
     "js": [
       "/reveal.js/js/reveal.min.js",
       "/src/js/content.js"
-    ]
+    ],
+    "run_at": "document_end"
   }],
   "background": {
     "page": "/src/html/background.html"

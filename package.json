@@ -1,0 +1,25 @@
+{
+  "name": "GistReveal",
+  "version": "0.2.1",
+  "description": "Reveal.js wrapper as chrome extension.",
+  "main": "gruntfile.coffee",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/1000ch/GistReveal.git"
+  },
+  "keywords": [
+    "reveal.js"
+  ],
+  "author": "1000ch",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/1000ch/GistReveal/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-qunit": "~0.3.0"
+  }
+}
