@@ -5,7 +5,6 @@ end
 
 desc "copy files"
 task :copy => [:mkdir] do
-    FileUtils.cp_r("./manifest.json", "./tmp/")
     FileUtils.cp_r("./src", "./tmp/")
     FileUtils.cp_r("./reveal.js", "./tmp/")
 end
