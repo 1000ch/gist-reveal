@@ -8,21 +8,21 @@
     "https://*/"
   ],
   "browser_action": {
-    "default_icon": "/src/icon/icon.png"
+    "default_icon": "/icon/icon.png"
   },
   "content_scripts": [{
     "matches": ["*://gist.github.com/*"],
     "css": [
-      "/src/css/content.css"
+      "/css/content.css"
     ],
     "js": [
       "/reveal.js/js/reveal.min.js",
-      "/src/js/content.js"
+      "/js/content.js"
     ],
     "run_at": "document_end"
   }],
   "background": {
-    "page": "/src/html/background.html"
+    "page": "/html/background.html"
   },
   "options_page": "/src/html/options.html",
   "web_accessible_resources": [
