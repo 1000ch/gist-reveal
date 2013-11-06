@@ -24,7 +24,7 @@
   "background": {
     "page": "/html/background.html"
   },
-  "options_page": "/src/html/options.html",
+  "options_page": "/html/options.html",
   "web_accessible_resources": [
     "/reveal.js/lib/font/league_gothic-webfont.eot",
     "/reveal.js/lib/font/league_gothic-webfont.svg",

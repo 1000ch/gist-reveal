@@ -5,8 +5,12 @@ end
 
 desc "copy files"
 task :copy => [:mkdir] do
-    FileUtils.cp_r("./src", "./tmp/")
-    FileUtils.cp_r("./reveal.js", "./tmp/")
+    FileUtils.cp_r("./src/html", "./tmp")
+    FileUtils.cp_r("./src/css", "./tmp")
+    FileUtils.cp_r("./src/js", "./tmp")
+    FileUtils.cp_r("./src/icon", "./tmp")
+    FileUtils.cp_r("./reveal.js", "./tmp")
+    FileUtils.cp("./src/manifest.json", "./tmp")
 end
 
 desc "compress files"
