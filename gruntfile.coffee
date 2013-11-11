@@ -2,7 +2,7 @@ module.exports = (grunt) ->
 
   grunt.initConfig
     qunit:
-      files: ['reveal.js/test/*.html']
+      files: ['src/reveal.js/test/*.html']
 
   grunt.loadNpmTasks 'grunt-contrib-qunit'
 
