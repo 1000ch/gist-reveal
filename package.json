@@ -19,6 +19,7 @@
     "url": "https://github.com/1000ch/GistReveal/issues"
   },
   "devDependencies": {
+    "grunt-cli": "~0.1.11",
     "grunt": "~0.4.1",
     "grunt-contrib-qunit": "~0.3.0"
   }
