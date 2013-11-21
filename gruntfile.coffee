@@ -38,12 +38,9 @@ module.exports = (grunt) ->
           'dist/js/options.js': ['src/js/options.js']
     qunit:
       files: ['src/reveal.js/test/*.html']
-<<<<<<< HEAD
     exec:
       rake:
         command: 'rake'
-=======
->>>>>>> 9c2b9abf2501edde93d2d690737a3d3a41fcd357
 
   grunt.loadNpmTasks 'grunt-html-inspector'
   grunt.loadNpmTasks 'grunt-contrib-jshint'
