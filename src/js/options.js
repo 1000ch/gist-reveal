@@ -1,5 +1,9 @@
 (function() {
 
+  var storageKey = {
+    themeKey: "gistreveal_theme_key"
+  };
+  
   /**
    * DOMContentLoaded
    * @param {Function} callback
@@ -15,10 +19,10 @@
   }
 
   ready(function() {
-    chrome.storage.sync.get("gistreveal_theme_key", function(items) {
+    chrome.storage.sync.get(storageKey.themeKey, function(items) {
       var theme = "default";
-      if(items.hasOwnProperty("gistreveal_theme_key")) {
-        theme = items["gistreveal_theme_key"];
+      if(items.hasOwnProperty(storageKey.themeKey)) {
+        theme = items[storageKey.themeKey];
       }
       var select = document.getElementById("js-themes");
       select.value = theme;

@@ -155,14 +155,14 @@
     });
 
     var reveal = createNode("div", {class: "reveal"});
-    var slides = createNode("div", {class: "slides"});
+    var revealSlides = createNode("div", {class: "slides"});
     var sections = qsa(".js-section");
 
     forEach.call(sections, function(section) {
-      moveNode(section, slides);
+      moveNode(section, revealSlides);
     });
 
-    reveal.appendChild(slides);
+    reveal.appendChild(revealSlides);
     document.body.appendChild(reveal);
 
     removeNode(qs("#wrapper"));
