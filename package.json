@@ -1,6 +1,6 @@
 {
   "name": "GistReveal",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Reveal.js wrapper as chrome extension.",
   "main": "gruntfile.coffee",
   "scripts": {
