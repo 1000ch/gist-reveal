@@ -5,11 +5,11 @@ end
 
 desc "copy files"
 task :copy => [:mkdir] do
-    FileUtils.cp_r("./src/html", "./tmp")
-    FileUtils.cp_r("./src/css", "./tmp")
-    FileUtils.cp_r("./src/js", "./tmp")
+    FileUtils.cp_r("./dist/html", "./tmp")
+    FileUtils.cp_r("./dist/css", "./tmp")
+    FileUtils.cp_r("./dist/js", "./tmp")
     FileUtils.cp_r("./src/icon", "./tmp")
-    FileUtils.cp_r("./reveal.js", "./tmp")
+    FileUtils.cp_r("./src/reveal.js", "./tmp")
     FileUtils.cp("./src/manifest.json", "./tmp")
 end
 
@@ -25,7 +25,12 @@ end
 
 desc "remove temporary files"
 task :remove_tmp do
-    FileUtils.remove_dir("./tmp")
+    if File.exist?("package.zip") then
+        FileUtils.rm("package.zip")
+    end
+    if File.exist?("./tmp") then
+        FileUtils.rm_r("./tmp")
+    end
 end
 
-task :default => [:archive, :remove_tmp]
+task :default => [:remove_tmp, :archive]
