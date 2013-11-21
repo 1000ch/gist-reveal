@@ -1,6 +1,6 @@
 {
   "name": "GistReveal",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "permissions": [
     "tabs",
     "storage",
@@ -8,28 +8,28 @@
     "https://*/"
   ],
   "browser_action": {
-    "default_icon": "/icon/icon.png"
+    "default_icon": "icon/icon.png"
   },
   "content_scripts": [{
     "matches": ["*://gist.github.com/*"],
     "css": [
-      "/css/content.css"
+      "css/content.css"
     ],
     "js": [
-      "/reveal.js/js/reveal.min.js",
-      "/js/content.js"
+      "reveal.js/js/reveal.min.js",
+      "js/content.js"
     ],
     "run_at": "document_end"
   }],
   "background": {
-    "page": "/html/background.html"
+    "page": "html/background.html"
   },
-  "options_page": "/html/options.html",
+  "options_page": "html/options.html",
   "web_accessible_resources": [
-    "/reveal.js/lib/font/league_gothic-webfont.eot",
-    "/reveal.js/lib/font/league_gothic-webfont.svg",
-    "/reveal.js/lib/font/league_gothic-webfont.ttf",
-    "/reveal.js/lib/font/league_gothic-webfont.woff"
+    "reveal.js/lib/font/league_gothic-webfont.eot",
+    "reveal.js/lib/font/league_gothic-webfont.svg",
+    "reveal.js/lib/font/league_gothic-webfont.ttf",
+    "reveal.js/lib/font/league_gothic-webfont.woff"
   ],
   "description": "Reveal.js wrapper as chrome extension.",
   "manifest_version": 2
